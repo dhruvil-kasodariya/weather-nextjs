@@ -47,14 +47,14 @@ export default function Home() {
     )
   }else if(error!==""){
     content =(
-      <div className="text-white text-center h-full mt-[5rem] mb-10">
+      <div className="text-white text-center mt-[5rem] mb-10 h-full">
         <p className="text-3xl font-bold mb-4">City Not Found</p>
         <p className="text-xl">Enter a Valid City Name</p>
       </div>
     )
   } else {
     content =(
-      <>
+      <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-transparent ">
       <div className="flex md:flex-row flex-col p-12 items-center justify-between">
        <Current data={data}/>
        <WeekForecast data={data}/>
@@ -62,19 +62,19 @@ export default function Home() {
       <div>
         <WeatherDeatils data={data} />
       </div>
-      </>
+      </div>
     )
   }
 
   return (
-    <div className="bg-cover bg-gradient-to-r from-blue-500 to-blue-300 h-fit">
-      <div className="bg-white/25 w-full flex flex-col h-fit">
+    <div className="bg-cover bg-gradient-to-r from-blue-500 to-blue-300 h-screen">
+      <div className="bg-white/25 w-full flex flex-col h-screen">
         <div className="flex flex-col md:flex-row justify-between items-center p-12">
           <Input handleSearch={handleSearch} setLocation ={setLocation} location={location}/>
           <h1 className="mb-8 md:mb-0 order-1 text-white py-2 px-4 rounded-xl italic font-bold">Weather App</h1>
         </div>
         {content}
-      </div>
+      </div> 
     </div>
   )
 }
