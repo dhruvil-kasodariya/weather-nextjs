@@ -4,7 +4,7 @@ import Input from "@/app/component/Input"
 import Current from '@/app/component/Current'
 import WeatherDeatils from "@/app/component/WeatherDeatils"
 import WeekForecast from "@/app/component/WeekForecast"
-import suratData from '@/data.json';
+
 export default function Home() {
   const [data,setData] =useState({});
   const [location,setLocation] =useState("");
