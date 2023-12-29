@@ -1,11 +1,7 @@
 "use client"
 import { FaSearchLocation } from "react-icons/fa";
-
-interface InputProps{
-    handleSearch:(event:React.KeyboardEvent<HTMLInputElement>)=>void
-    setLocation: React.Dispatch<React.SetStateAction<string>>
-    location:string
-}  
+import { InputProps } from "../utilis/interface";
+ 
 
 const Input = ({handleSearch,setLocation,location}:InputProps) => {
   return (

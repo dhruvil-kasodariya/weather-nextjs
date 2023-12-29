@@ -1,22 +1,5 @@
-interface DayForecast {
-    date:string;
-    day:{
-        condition:{
-            icon:string;
-            text:string;
-        };
-        maxtemp_c:number;
-        mintemp_c:number;
-    }
-}
+import { WeekForecastProps } from "../utilis/interface"
 
-interface WeekForecastProps {
-    data:{
-        forecast:{
-            forecastday:DayForecast[]
-        }
-    }
-}
 
 const WeekForecast = ({data}:WeekForecastProps) => {
   return (

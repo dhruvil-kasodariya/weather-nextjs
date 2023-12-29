@@ -1,9 +1,5 @@
-interface WeatherDeatilBoxProp{
-  title:string;
-  value:string | number;
-  unit?:string;
-  Icon:React.ElementType;
-}
+import { WeatherDeatilBoxProp } from "../utilis/interface"
+
 
 const WeatherDeatilBox = ({title,value,unit,Icon}:WeatherDeatilBoxProp) => {
   return (

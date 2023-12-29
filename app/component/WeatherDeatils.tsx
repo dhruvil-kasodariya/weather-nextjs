@@ -4,27 +4,9 @@ import { BsSunriseFill ,BsSunsetFill } from "react-icons/bs";
 import { FaTemperatureHigh ,FaEye} from "react-icons/fa6";
 import { MdOutlineAir } from "react-icons/md";
 import WeatherDeatilsBox from './WeatherDeatilBox';
+import { WeatherDetailsProps } from "../utilis/interface";
 
-interface WeatherDetailsProps {
-    data:{
-        current:{
-            wind_kph:number;
-            humidity:number;
-            wind_dir:string;
-            feelslike_c:number;
-            pressure_mb:number;
-            vis_km:number;
-        },
-        forecast:{
-            forecastday:{
-                astro:{
-                    sunrise:string;
-                    sunset:string
-                }
-            }[]
-        }
-    }
-}
+
 
 const WeatherDeatils = ({data}:WeatherDetailsProps) => {
 

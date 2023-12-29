@@ -1,22 +1,7 @@
 import React from 'react'
 import { getCurrentDate } from '../utilis/currentDate'
 import { IoLocation } from "react-icons/io5";
-
-interface CurrentProps {
-    data:{
-        current:{
-            condition:{
-                icon:string;
-                text:string
-            };
-            temp_c:number;
-        };
-        location:{
-            name:string;
-            region:string; 
-        }
-    }
-}
+import { CurrentProps } from '../utilis/interface';
 
 const Current = ({data}:CurrentProps) => {
   

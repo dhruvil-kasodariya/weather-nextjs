@@ -4,6 +4,8 @@ import Input from "@/app/component/Input"
 import Current from '@/app/component/Current'
 import WeatherDeatils from "@/app/component/WeatherDeatils"
 import WeekForecast from "@/app/component/WeekForecast"
+import { CurrentProps, WeatherDetailsProps, WeekForecastProps } from "./utilis/interface"
+
 
 export default function Home() {
   const [data,setData] =useState({});
@@ -56,11 +58,11 @@ export default function Home() {
     content =(
       <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-transparent ">
       <div className="flex md:flex-row flex-col p-12 items-center justify-between">
-       <Current data={data}/>
-       <WeekForecast data={data}/>
+       <Current data={data as CurrentProps['data']}/>
+       <WeekForecast data={data as WeekForecastProps['data']}/>
       </div>
       <div>
-        <WeatherDeatils data={data} />
+        <WeatherDeatils data={data as WeatherDetailsProps['data']} />
       </div>
       </div>
     )
