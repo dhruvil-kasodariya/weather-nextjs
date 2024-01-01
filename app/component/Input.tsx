@@ -5,7 +5,7 @@ import { InputProps } from "../utilis/interface";
 
 const Input = ({handleSearch,setLocation,location}:InputProps) => {
   return (
-    <form className="flex items-center md:w-2/4 w-full order-2 md:order-1">
+    <form className="flex items-center md:w-2/4 w-full order-2 md:order-1 mb-8 md:mb-0 ">
         <input
         type="text"
         placeholder="Search City" 

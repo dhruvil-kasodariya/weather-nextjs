@@ -1,5 +1,6 @@
 "use client"
-import React,  { useState } from "react"
+import React,  { useEffect, useState } from "react";
+import { FaLocationArrow } from "react-icons/fa";
 import Input from "@/app/component/Input"
 import Current from '@/app/component/Current'
 import WeatherDeatils from "@/app/component/WeatherDeatils"
@@ -11,33 +12,64 @@ export default function Home() {
   const [data,setData] =useState({});
   const [location,setLocation] =useState("");
   const [error,setError] =useState("");
-
-  const url =`https://api.weatherapi.com/v1/forecast.json?key=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&q=${location}&days=7&aqi=yes&alerts=yes`
-
-  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    if (e.type === 'keydown' && (e as React.KeyboardEvent<HTMLInputElement>).key !== 'Enter') {
-      return;
-    }
+  const [cordition,setCordition]=useState("");
   
-    e.preventDefault();
-  
+  const url =`https://api.weatherapi.com/v1/forecast.json?key=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&q=${location || cordition}&days=7&aqi=yes&alerts=yes`;
+
+  const getData=async()=>{
     try {
-      const response = await fetch(url);
-  
+      const response = await fetch(url);    
       if (!response.ok) {
         throw new Error();
       }
-  
       const jsonData = await response.json();
       setData(jsonData);
-    
       setLocation("");
       setError("");
     } catch (error) {
       setError("City not found");
       setData({});
     }
+  }
+
+  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    if (e.type === 'keydown' && (e as React.KeyboardEvent<HTMLInputElement>).key !== 'Enter') {
+      return;
+    }
+    e.preventDefault();
+    getData();
   };
+
+  const getLiveLocation = async () => {
+    if (navigator.geolocation) {
+      try {
+        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const coordinates = `${latitude},${longitude}`;
+        return coordinates;       
+      } catch (error) {
+        console.error("Error getting geolocation:", error);
+      }
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+   return '';
+  };
+
+  const searchLiveLocation =async()=>{
+     const data =  await getLiveLocation();
+     setCordition(data);
+  }
+
+  useEffect(()=>{
+    if(cordition){
+    getData()
+  }
+  },[cordition])
+
  
   let content;
   if(Object.keys(data).length===0 && error === ""){
@@ -73,7 +105,11 @@ export default function Home() {
       <div className="bg-white/25 w-full flex flex-col h-screen">
         <div className="flex flex-col md:flex-row justify-between items-center p-12">
           <Input handleSearch={handleSearch} setLocation ={setLocation} location={location}/>
-          <h1 className="mb-8 md:mb-0 order-1 text-white py-2 px-4 rounded-xl italic font-bold">Weather App</h1>
+          <div className="flex flex-row items-center justify-center gap-2 order-3 md:order-2 mb-4 md:mb-0 text-white cursor-pointer" onClick={searchLiveLocation}>
+            <h1>Get Live Location</h1>
+            <FaLocationArrow />
+          </div>
+          <h1 className="order-1 md:order-3  text-white py-2 px-4 rounded-xl italic font-bold">Weather App</h1>
         </div>
         {content}
       </div> 
