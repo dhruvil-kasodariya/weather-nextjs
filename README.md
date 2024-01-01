@@ -7,6 +7,7 @@
 ## About
 
 This application allows users to obtain weather data for a specific city through a search feature.
+application also allows users to obtain weather data from live location feature.
 
 ## Features
 
