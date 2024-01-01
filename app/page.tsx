@@ -1,6 +1,8 @@
 "use client"
 import React,  { useEffect, useState } from "react";
 import { FaLocationArrow } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Input from "@/app/component/Input"
 import Current from '@/app/component/Current'
 import WeatherDeatils from "@/app/component/WeatherDeatils"
@@ -25,8 +27,12 @@ export default function Home() {
       const jsonData = await response.json();
       setData(jsonData);
       setLocation("");
+      setCordition("");
       setError("");
     } catch (error) {
+      toast.error('City not found',{
+        position:toast.POSITION.TOP_RIGHT
+      })
       setError("City not found");
       setData({});
     }
@@ -51,9 +57,15 @@ export default function Home() {
         const coordinates = `${latitude},${longitude}`;
         return coordinates;       
       } catch (error) {
+        toast.error(`Error getting geolocation:, ${error}`, {
+          position: toast.POSITION.TOP_RIGHT,
+        })
         console.error("Error getting geolocation:", error);
       }
     } else {
+      toast.error("Geolocation is not supported by this browser.", {
+        position: toast.POSITION.TOP_RIGHT,
+      })
       console.log("Geolocation is not supported by this browser.");
     }
    return '';
@@ -113,6 +125,7 @@ export default function Home() {
         </div>
         {content}
       </div> 
+      <ToastContainer/>
     </div>
   )
 }
